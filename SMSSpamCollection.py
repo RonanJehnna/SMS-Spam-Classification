@@ -24,15 +24,15 @@ for i in range(0, len(messages)):
     review = re.sub('[^a-zA-Z]', ' ', messages['message'][i])
     review = review.lower()
     review = review.split()
-    # review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))]
-    review = [wordnet.lemmatize(word) for word in review if not word in set(stopwords.words('english'))]
+    review = [ps.stem(word) for word in review if not word in set(stopwords.words('english'))]
+    # review = [wordnet.lemmatize(word) for word in review if not word in set(stopwords.words('english'))]
     review = ' '.join(review)
     corpus.append(review)
     
 # Creating the Bag of Words Model
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-# cv = CountVectorizer(max_features=2500)
-cv = TfidfVectorizer()
+cv = CountVectorizer(max_features=2500)
+# cv = TfidfVectorizer(max_features=2500)
 X = cv.fit_transform(corpus).toarray()
 
 y = pd.get_dummies(messages['label'])
